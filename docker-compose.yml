@@ -1,24 +1,16 @@
-version: "3.8"
-
+version: '3.9'
 services:
-  # PostgreSQL Service
   db:
-    image: postgres:16
-    container_name: db
+    container_name: db-container
+    image: postgres:${POSTGRES_VERSION}
+    platform: linux/amd64
     environment:
-      POSTGRES_DB: example
-      POSTGRES_USER: pgsql
-      POSTGRES_PASSWORD: 
-    volumes:
-      - dbdata:/var/lib/postgresql/data
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - TZ='Asia/Tokyo'
     ports:
-      - "5432:5432"
-    networks:
-      - example-network
+      - '${DB_PORT}:5432'
+    volumes:
+      - ./pgdata/data:/var/lib/postgresql/data
 
-networks:
-  example-network:
-    driver: bridge
-
-volumes:
-  dbdata:
