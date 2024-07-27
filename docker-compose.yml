@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  # PostgreSQL Service
+  db:
+    image: postgres:16
+    container_name: db
+    environment:
+      POSTGRES_DB: example
+      POSTGRES_USER: pgsql
+      POSTGRES_PASSWORD: 
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - example-network
+
+networks:
+  example-network:
+    driver: bridge
+
+volumes:
+  dbdata:
