@@ -20,6 +20,8 @@ export class AuthService {
   ) {}
 
   async signUp(postData: SignUpData): Promise<Msg> {
+    console.log('signUp');
+    console.log(postData);
     const hashedPassword = await bcrypt.hash(postData.password, 12);
     try {
       await this.prismaService.user.create({
@@ -40,6 +42,8 @@ export class AuthService {
   }
 
   async login(postData: Credentials) {
+    console.log('login');
+    console.log(postData);
     const user = await this.prismaService.user.findUnique({
       where: { email: postData.email },
     });
